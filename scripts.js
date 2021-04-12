@@ -1,25 +1,21 @@
 const math = require("mathjs");
-const np = require("npyjs");
-
-// n.load("./1-06JanDesktop-croppedDown.npy", (array, shape) => {
-//   // `array` is a one-dimensional array of the raw data
-//   // `shape` is a one-dimensional array that holds a numpy-style shape.
-//   console.log(
-//     `You loaded an array with ${array.length} elements and ${shape.length} dimensions.`
-//   );
-// });
 const fs = require("fs");
 
 let rawdata = fs.readFileSync("array1.json");
-let student = JSON.parse(rawdata);
-console.log(typeof student);
+let data = JSON.parse(rawdata);
+// console.log(typeof student); //---> object
+let matrix1 = math.matrix(data);
 
-const matrix = math.matrix(student);
-console.log(matrix);
-math.size(matrix);
+rawdata = fs.readFileSync("array2.json");
+data = JSON.parse(rawdata);
+let matrix2 = math.matrix(data);
 
-// fetch("./array1.json")
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((data) => console.log(data));
+// console.log(math.subset(matrix1, math.index(0, 1)));
+// console.log(math.subset(matrix2, math.index(0, 1)));
+
+// console.log(math.size(matrix)); //---> [4, 1280] is correct
+
+let newM = math.subtract(matrix1, matrix2);
+// console.log(math.subset(newM, math.index(0, 1)));  //---> checked for wokring, works!
+
+console.log(math.size(newM));
